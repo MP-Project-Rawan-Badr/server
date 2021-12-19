@@ -1,7 +1,6 @@
 
 
 | Path | Component | Permissions |Behavior |
-| :---         |     :---:      |          ---: |
 | `/`   | SplashPage    | public    | Home page    |
 
 ## ER Diagram:
