@@ -6,7 +6,7 @@ https://trello.com/b/p0lIavji/mprawanbadr
 
 | HTTP Method | URL                | Request Body                               | Success status  | Error status  | Description       |
 | ----------- | ------------------ | ----------------------------------------- | --------------- | ------------- | ------------------ |
-| POST        | `/signUp`          | {email, password}                         | 200             | 400           | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session   |
+| POST        | `/signUp`          | {email, password}                         | 200             | 404           | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session   |
 | POST        | `/login`           | {userName, email, password}               | 201             | 404           | Checks if fields not empty  and user not exists, and if password matches (404), then stores user in session           |
 | POST        | `/logout`          | {empty}                                   | 204             | 400           | logout the user               |
 | GET         | `/getAllUsers`     |                                           | 200             | 400           | Get all users                 |
