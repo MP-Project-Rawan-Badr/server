@@ -1,8 +1,11 @@
 ## Routes
 
-| HTTP Method | URL         | Request Body | Success status  | Error status  | Description        |
-| ----------- | ----------- | ------------ | --------------- | ------------- | ------------------ |
-| GET         | `/`         |              | 200             | 404           | Check if user is logged in and return profile page        |
+| HTTP Method | URL         | Request Body                   | Success status  | Error status  | Description        |
+| ----------- | ----------- | ------------------------------ | --------------- | ------------- | ------------------ |
+| GET         | `/`         |                                | 200             | 404           | Check if user is logged in and return Home page        |
+| POST        | `/signUp`   | {email, password}              | 200             | 401           | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session          |
+| POST        | `/login`   | {userName, email, password}    | 201             | 404            | Checks if fields not empty (422) and user not exists (404),  and if password matches (404), then stores user in session                  |
+
 
 
 ## ER Diagram:
