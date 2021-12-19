@@ -3,12 +3,10 @@
 
 <h2>start server by use: </h2>
 
-| -------------- | -------------------------------- |
-![Node.js](https://img.shields.io/badge/Node.js-83CD29?style=for-the-badge&logo=node.js&logoColor=white) |  ![Express.js](https://img.shields.io/badge/Express.js-ffffff?style=for-the-badge&logo=express.js&logoColor=61DAFB)|
-
-
-
-![mongoDB](https://img.shields.io/badge/mongoDB-43853D?style=for-the-badge&logo=mongodb&logoColor=white)
+- ![Node.js](https://img.shields.io/badge/Node.js-404137?style=for-the-badge&logo=node.js&logoColor=white)   
+- ![Express.js](https://img.shields.io/badge/Express.js-ffffff?style=for-the-badge&logo=express.js&logoColor=61DAFB)
+- ![mongoDB](https://img.shields.io/badge/mongoDB-43853D?style=for-the-badge&logo=mongodb&logoColor=white)
+- ![Postman](https://img.shields.io/badge/Postman-ff9933?style=for-the-badge&logo=postman&logoColor=white)
 
 </div>
 
