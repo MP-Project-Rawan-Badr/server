@@ -97,7 +97,7 @@ https://trello.com/b/p0lIavji/mprawanbadr
 ## Client Repo:
 https://github.com/MP-Project-Rawan-Badr/client
 
-## Slieds:
+## Slides:
 
 ## Deploy:
 
