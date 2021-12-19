@@ -1,3 +1,8 @@
+## Routes
+
+| HTTP Method | URL         | Request Body | Success status  | Error status  | Description        |
+| ----------- | ----------- | ------------ | --------------- | ------------- | ------------------ |
+| GET         | `/`         |              | 200             | 404           | Check if user is logged in and return profile page        |
 
 
 ## ER Diagram:
