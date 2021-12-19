@@ -1,3 +1,4 @@
+## project name: ``` Wmeedh ``` :high_brightness:
 
 <div>
 
@@ -9,6 +10,34 @@
 - ![Postman](https://img.shields.io/badge/Postman-ff9933?style=for-the-badge&logo=postman&logoColor=white)
 
 </div>
+
+<br/>
+
+# :paperclip: Links:
+
+### :heavy_check_mark: `Trello:`
+https://trello.com/b/p0lIavji/mprawanbadr
+
+### :heavy_check_mark: `Slides:`
+https://slides
+
+### :heavy_check_mark: `Client Repositories:`
+https://github.com/MP-Project-Rawan-Badr/client/blob/main/README.md
+### :heavy_check_mark: `Deploy:`
+https://deploy
+
+<br/>
+
+
+used library
+
+- ![express](https://img.shields.io/badge/express-ffffff?style=for-the-badge&logo=express&logoColor=white)
+- ![cors](https://img.shields.io/badge/cors-ffcccc?style=for-the-badge&logo=cors&logoColor=white)
+- ![morgan](https://img.shields.io/badge/morgan-dca3a3?style=for-the-badge&logo=morgan&logoColor=white)
+- ![dotenv](https://img.shields.io/badge/dotenv-black?style=for-the-badge&logo=dotenv&logoColor=white)
+- ![mongoose](https://img.shields.io/badge/mongoose-43853D?style=for-the-badge&logo=mongoose&logoColor=white)
+- ![bcrypt](https://img.shields.io/badge/bcrypt-943838?style=for-the-badge&logo=bcrypt&logoColor=white)
+- ![jsonwebtoken](https://img.shields.io/badge/jsonwebtoken-f1dada?style=for-the-badge&logo=jsonwebtoken&logoColor=white)
 
 
 
