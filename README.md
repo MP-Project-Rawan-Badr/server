@@ -2,7 +2,7 @@
 
 <div>
 
-<h2>start server by use: </h2>
+<h2> :page_with_curl: start server by use: </h2>
 
 - ![Node.js](https://img.shields.io/badge/Node.js-404137?style=for-the-badge&logo=node.js&logoColor=white)   
 - ![Express.js](https://img.shields.io/badge/Express.js-ffffff?style=for-the-badge&logo=express.js&logoColor=61DAFB)
@@ -29,7 +29,7 @@ https://deploy
 <br/>
 
 
-<h2> library </h2>
+ <h2> :page_with_curl: library </h2>
 
 - ![express](https://img.shields.io/badge/express-ffffff?style=for-the-badge&logo=express&logoColor=white)
 - ![cors](https://img.shields.io/badge/cors-ffcccc?style=for-the-badge&logo=cors&logoColor=white)
