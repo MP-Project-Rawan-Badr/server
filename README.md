@@ -10,7 +10,7 @@
 <h2> :pencil: start server by use: </h2>
 
 - ![Node.js](https://img.shields.io/badge/Node.js-404137?style=for-the-badge&logo=node.js&logoColor=white)   
-- ![Express.js](https://img.shields.io/badge/Express.js-ffffff?style=for-the-badge&logo=express.js&logoColor=black)
+- ![Express.js](https://img.shields.io/badge/express-ffffff?style=for-the-badge&logo=express&logoColor=black)
 - ![mongoDB](https://img.shields.io/badge/mongoDB-43853D?style=for-the-badge&logo=mongodb&logoColor=white)
 - ![Postman](https://img.shields.io/badge/Postman-ff9933?style=for-the-badge&logo=postman&logoColor=white)
 
@@ -40,7 +40,7 @@ https://deploy
 - ![cors](https://img.shields.io/badge/cors-ffcccc?style=for-the-badge&logo=cors&logoColor=white)
 - ![morgan](https://img.shields.io/badge/morgan-dca3a3?style=for-the-badge&logo=morgan&logoColor=white)
 - ![dotenv](https://img.shields.io/badge/dotenv-black?style=for-the-badge&logo=dotenv&logoColor=white)
-- ![mongoose](https://img.shields.io/badge/mongoose-43853D?style=for-the-badge&logo=mongoose&logoColor=white)
+- ![mongoose](https://img.shields.io/badge/mongoDB-43853D?style=for-the-badge&logo=mongodb&logoColor=white)
 - ![bcrypt](https://img.shields.io/badge/bcrypt-943838?style=for-the-badge&logo=bcrypt&logoColor=white)
 - ![jsonwebtoken](https://img.shields.io/badge/jsonwebtoken-f1dada?style=for-the-badge&logo=jsonwebtoken&logoColor=white)
 
