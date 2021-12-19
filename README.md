@@ -1,8 +1,12 @@
-## project name: ``` Wmeedh ``` :high_brightness:
+<div align="center">
+
+ <h2> project name: Wmeedh  :high_brightness: </h2>
+ 
+</div>
 
 <div>
 
-<h2> :page_with_curl: start server by use: </h2>
+<h2> :pencil: start server by use: </h2>
 
 - ![Node.js](https://img.shields.io/badge/Node.js-404137?style=for-the-badge&logo=node.js&logoColor=white)   
 - ![Express.js](https://img.shields.io/badge/Express.js-ffffff?style=for-the-badge&logo=express.js&logoColor=61DAFB)
@@ -29,7 +33,7 @@ https://deploy
 <br/>
 
 
- <h2> :page_with_curl: library </h2>
+ <h2> :pencil: library </h2>
 
 - ![express](https://img.shields.io/badge/express-ffffff?style=for-the-badge&logo=express&logoColor=white)
 - ![cors](https://img.shields.io/badge/cors-ffcccc?style=for-the-badge&logo=cors&logoColor=white)
@@ -41,7 +45,7 @@ https://deploy
 
 
 
-## Routes
+## :file_folder: Routes
 
 | HTTP Method | URL                | Request Body                               | Success status  | Error status  | Description       |
 | ----------- | ------------------ | ----------------------------------------- | --------------- | ------------- | ------------------ |
@@ -66,14 +70,14 @@ https://deploy
 | GET         | `/getInquiries`    |                                           | 200             | 400           |  Get all inquiry or quistion   | 
 | GET         | `/getOneInquiry`   |   {id}                                    | 200             | 400           |  Get one inquiry or quistion by id   | 
 
-## UML Diagram:
+## :triangular_ruler: UML Diagram:
 ![UML_Dia_backend_m](https://user-images.githubusercontent.com/92247926/146682123-785f2836-ca08-4250-b02e-973c90646e8c.png)
 
+<br/>
 
+## :file_folder: Models
 
-## Models
-
-- roles model
+- :bookmark: roles model
 
 | key        | type   | options          | default value |
 | -----------| ------ | ---------------- | ------------- |
@@ -82,7 +86,7 @@ https://deploy
 
 
 
-- user model
+- :bookmark: user model
 
 | key        | type            | options          | default value |
 | ---------- | --------------- | ---------------- | ------------- |
@@ -93,7 +97,7 @@ https://deploy
 | isDel      | Boolean         | n/a              | false         |
 
   
-- post model
+- :bookmark: post model
 
 | key        | type            | options          | default value |
 | ---------- | --------------- | ---------------- | ------------- |
@@ -104,7 +108,7 @@ https://deploy
 | Date       | new Date        | required         | n/a           |
 | user       | Schema <user>   | required         | n/a           |
   
- - inquiry model
+ - :bookmark: inquiry model
 
 | key         | type            | options          | default value |
 | ----------  | --------------- | ---------------- | ------------- |
@@ -114,7 +118,7 @@ https://deploy
 | Date       | new Date        | required         | n/a           |
 | user       | Schema <user>   | required         | n/a           |
 
- - appointment model
+ - :bookmark: appointment model
 
 | key        | type            | options          | default value |
 | ---------- | --------------- | ---------------- | ------------- |
@@ -126,20 +130,6 @@ https://deploy
 
 
 
-## ER Diagram:
+## :triangular_ruler: ER Diagram:
 ![ERD](https://user-images.githubusercontent.com/92247926/146616334-5b9af3b9-c8a3-4ca2-94f1-db2f15e40302.png)
-
-
-
-  
- ## Links:
-https://trello.com/b/p0lIavji/mprawanbadr
-
-## Client Repo:
-https://github.com/MP-Project-Rawan-Badr/client
-
-## Slides:
-The url to your presentation slides
-
-## Deploy:
 
