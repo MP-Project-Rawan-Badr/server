@@ -29,10 +29,56 @@ https://trello.com/b/p0lIavji/mprawanbadr
 
 
 
+## Models
+
+- roles model
+
+| key        | type   | options          | default value |
+| -----------| ------ | ---------------- | ------------- |
+| role       | String | required, unique | n/a           |
+| permission | Array  | required         | n/a           |
 
 
 
+- user model
 
+| key        | type            | options          | default value |
+| ---------- | --------------- | ---------------- | ------------- |
+| userName   | String          | required, unique | n/a           |
+| email      | String          | required, unique | n/a           |
+| password   | String          | required         | n/a           |
+| role       | Schema <role>   | required         | n/a           |
+| isDel      | Boolean         | n/a              | false         |
+
+  
+- post model
+
+| key        | type            | options          | default value |
+| ---------- | --------------- | ---------------- | ------------- |
+| Title      | String          | required         | n/a           |
+| Images     | Array           | required         | n/a           |
+| Description| String          | required         | n/a           |
+| isDel      | Boolean         | n/a              | false         |
+| Date       | new Date        | required         | n/a           |
+| user       | Schema <user>   | required         | n/a           |
+  
+ - inquiry model
+
+| key         | type            | options          | default value |
+| ----------  | --------------- | ---------------- | ------------- |
+| Title       | String          | required         | n/a           |
+| Descripssion| String          | required         | n/a           |
+| isDel       | Boolean         | n/a              | false         |
+| Date       | new Date        | required         | n/a           |
+| user       | Schema <user>   | required         | n/a           |
+
+ - appointment model
+
+| key        | type            | options          | default value |
+| ---------- | --------------- | ---------------- | ------------- |
+| Date       | new Date        | required         | n/a           |
+| user       | Schema <user>   | required         | n/a           |
+| isDel      | Boolean         | n/a              | false         |
 
 
 
