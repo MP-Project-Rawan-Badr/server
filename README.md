@@ -98,6 +98,7 @@ https://trello.com/b/p0lIavji/mprawanbadr
 https://github.com/MP-Project-Rawan-Badr/client
 
 ## Slides:
+The url to your presentation slides
 
 ## Deploy:
 
