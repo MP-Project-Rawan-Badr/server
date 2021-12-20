@@ -7,6 +7,9 @@ app.use(cors());
 
 require("./db");
 
+const roleRouter = require("./Routers/Route/Role");
+app.use(roleRouter);
+
 
 
 const PORT = process.env.PORT /*|| 5000*/;
