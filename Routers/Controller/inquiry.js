@@ -62,9 +62,29 @@ const getInquiries = (req, res) => {
       });
   };
 //
+const deleteInquiry = (req, res) => {
+    const { id } = req.params;
+    inquiryModel
+      .findByIdAndUpdate(
+        { _id: id,  isDel: false },
+        { isDel: true },
+        { new: true }
+      )
+      .populate("user")
+      .then((result) => {
+        if (result) {
+            res.status(200).json("deleted inquiry");
+        } else {
+          res.status(404).json("already deleted");
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  };
 
 
 
 
 
-module.exports = { addinquiry , getInquiries, updateInquiry };
+module.exports = { addinquiry , getInquiries, updateInquiry , deleteInquiry };
