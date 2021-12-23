@@ -8,9 +8,8 @@ const addPost = (req, res) => {
   userModel.findById(user)
   .populate("role")
   .then((result)=>{
-    console.log(result);
     console.log(result.role);
-    if(result.role.user == "service provider"){
+    if(result.role.role == "service provider"){
       const newPost = new postModel({
         title,
         imgs,

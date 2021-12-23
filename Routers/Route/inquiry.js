@@ -6,8 +6,7 @@ const {addinquiry, getInquiries, updateInquiry} = require("./../Controller/inqui
 //
 inquiryRouter.post("/addinquiry", addinquiry);
 inquiryRouter.get("/getInquiries", getInquiries);
-
-
+inquiryRouter.put("/updateInquiry/:id", updateInquiry);
 
 
 module.exports = inquiryRouter;
