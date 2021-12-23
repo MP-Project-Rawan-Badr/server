@@ -74,12 +74,6 @@ const deletePost = (req, res) => {
       .populate("user")
       .then((result) => {
         if (result) {
-          commentModel.find({ isDel: true }).catch((err) => {
-            res.status(400).json(err);
-          });
-          likeModel.find({ like: false }).catch((err) => {
-            res.status(400).json(err);
-          })
             res.status(200).json("deleted");
         } else {
           res.status(404).json("already deleted");
