@@ -20,6 +20,9 @@ app.use(userRouter);
 const postRouter = require("./Routers/Route/post");
 app.use(postRouter);
 
+//inquiry
+const inquiryRouter = require("./Routers/Route/inquiry");
+app.use(inquiryRouter);
 
 
 const PORT = process.env.PORT /*|| 5000*/;
