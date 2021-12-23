@@ -1,10 +1,11 @@
 const express = require("express");
 const inquiryRouter = express.Router();
-const {addinquiry} = require("./../Controller/inquiry");
+const {addinquiry, getInquiries} = require("./../Controller/inquiry");
 
 
 //
 inquiryRouter.post("/addinquiry", addinquiry);
+inquiryRouter.get("/addinquiry", getInquiries);
 
 
 

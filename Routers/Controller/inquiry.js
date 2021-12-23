@@ -21,7 +21,7 @@ const addinquiry = (req, res) => {
 };
 
 //
-const getAllPosts = (req, res) => {
+const getInquiries = (req, res) => {
     inquiryModel
       .find({ isDel: false })
       .populate("user")
@@ -41,4 +41,4 @@ const getAllPosts = (req, res) => {
 
 
 
-module.exports = { addinquiry , getAllPosts };
+module.exports = { addinquiry , getInquiries };
