@@ -1,43 +1,65 @@
 const postModel = require("./../../db/Models/post");
 
-
 //
 const addPost = (req, res) => {
-    const { title, imgs, dec , user } = req.body;
-    const newPost = new postModel({
-        title, 
-        imgs, 
-        dec,
-        user,
+  const { title, imgs, dec, user } = req.body;
+  const newPost = new postModel({
+    title,
+    imgs,
+    dec,
+    user,
+  });
+  newPost
+    .save()
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
     });
-    newPost
-      .save()
-      .then((result) => {
-        res.status(201).json(result);
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  };
+};
 
 //
 const getAllPosts = (req, res) => {
-    postModel
-  .find({ isDel: false , })
-      .populate("user")
-      .then((result) => {
-        if (result) {
-          res.status(200).json(result);
-        } else {
-          res.status(400).json("post not found");
-        }
-      })
-      .catch((err) => {
-        res.status(400).json(err);
-      });
-  };
-  
+  postModel
+    .find({ isDel: false })
+    .populate("user")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json("post not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
+//update post
+const updatePost = (req, res) => {
+  const { id } = req.params;
+  const { title, imgs, dec } = req.body;
+  postModel
+    .findByIdAndUpdate(
+      { _id: id, isDel: false },
+      {
+        title,
+        imgs,
+        dec,
+      }
+    )
+    .populate("user")
+    .then((result) => {
+      if (!result) {
+        res.status(400).json(" This post not found");
+      } else {
+        res.status(200).json("update post");
+      }
+    })
+    .catch((error) => {
+      res.status(400).json(error);
+    });
+};
 
-
-module.exports = {addPost , getAllPosts}
+module.exports = { addPost, getAllPosts , updatePost };
