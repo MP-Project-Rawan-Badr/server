@@ -18,9 +18,27 @@ const addinquiry = (req, res) => {
         .catch((error) => {
           res.status(400).json(error);
         });
-
 };
 
+//
+const getAllPosts = (req, res) => {
+    inquiryModel
+      .find({ isDel: false })
+      .populate("user")
+      .then((result) => {
+        if (result) {
+          res.status(200).json(result);
+        } else {
+          res.status(400).json("inquiry not found");
+        }
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+  };
 
 
-module.exports = { addinquiry };
+
+
+
+module.exports = { addinquiry , getAllPosts };
