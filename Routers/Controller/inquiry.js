@@ -37,8 +37,33 @@ const getInquiries = (req, res) => {
       });
   };
 
+  //
+  const updateInquiry = (req, res) => {
+    const { id } = req.params;
+    const { title, dec } = req.body;
+    inquiryModel
+      .findByIdAndUpdate(
+        { _id: id, isDel: false },
+        {
+            title,
+             dec
+        }
+      )
+      .populate("user")
+      .then((result) => {
+        if (!result) {
+          res.status(400).json(" This inquiry not found");
+        } else {
+          res.status(200).json("update inquiry");
+        }
+      })
+      .catch((error) => {
+        res.status(400).json(error);
+      });
+  };
 
 
 
 
-module.exports = { addinquiry , getInquiries };
+
+module.exports = { addinquiry , getInquiries, updateInquiry };
