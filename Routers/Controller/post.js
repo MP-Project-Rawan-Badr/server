@@ -1,23 +1,35 @@
 const postModel = require("./../../db/Models/post");
 const userModel = require("./../../db/Models/user");
+const roleModel = require("./../../db/Models/Role");
 
 //
 const addPost = (req, res) => {
   const { title, imgs, dec, user } = req.body;
-  const newPost = new postModel({
-    title,
-    imgs,
-    dec,
-    user,
-  });
-  newPost
-    .save()
-    .then((result) => {
-      res.status(201).json(result);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  userModel.findById(user)
+  .populate("role")
+  .then((result)=>{
+    console.log(result);
+    console.log(result.role);
+    if(result.role.user == "service provider"){
+      const newPost = new postModel({
+        title,
+        imgs,
+        dec,
+        user,
+      });
+      newPost
+        .save()
+        .then((result) => {
+          res.status(201).json(result);
+        })
+        .catch((error) => {
+          res.status(400).json(error);
+        });
+      }else{
+        res.status(400).json("not allowd");
+      }
+  })
+
 };
 
 //
