@@ -20,9 +20,24 @@ const addPost = (req, res) => {
       });
   };
 
-
+//
+const getAllPosts = (req, res) => {
+    postModel
+  .find({ isDel: false , })
+      .populate("user")
+      .then((result) => {
+        if (result) {
+          res.status(200).json(result);
+        } else {
+          res.status(400).json("post not found");
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  };
   
 
 
 
-module.exports = {addPost }
+module.exports = {addPost , getAllPosts}
