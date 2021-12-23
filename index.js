@@ -16,6 +16,10 @@ const userRouter = require("./Routers/Route/user");
 app.use(userRouter);
 
 
+//post
+const postRouter = require("./Routers/Route/post");
+app.use(postRouter);
+
 
 
 const PORT = process.env.PORT /*|| 5000*/;
