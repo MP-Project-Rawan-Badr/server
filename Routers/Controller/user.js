@@ -78,7 +78,7 @@ const register = async (req, res) => {
         if (error) {
           console.log(error);
           res.status(200).json({
-            err: "Something went wrong on our end. Please register again.",
+            err: "Wrong, Please register again.",
           });
         } else {
           console.log("Mail sent : %s", mail.response);
@@ -91,8 +91,8 @@ const register = async (req, res) => {
     }
   });
 };
-//
-const activate = async (req, res) => {
+// active email
+const activEmail = async (req, res) => {
   const token = req.params.token;
   if (token) {
     jwt.verify(token, secret, (error, decodedToken) => {
@@ -135,6 +135,44 @@ const activate = async (req, res) => {
   }
 };
 
+// login 
+const login = (req, res) => {
+  const { email, password } = req.body;
+  const saveEmail = email.toLowerCase();
+
+  userModel
+    .findOne({ email: saveEmail })
+    .then(async (result) => {
+      if (result) {
+        if (result.email == email) {
+          const hashedPass = await bcrypt.compare(password, result.password);
+          console.log(hashedPass);
+
+          const payload = {
+            // id,
+            email,
+          };
+
+          if (hashedPass) {
+            const token = await jwt.sign(payload, secret);
+            console.log(hashedPass);
+
+            res.status(200).json({ result, token });
+          } else {
+            res.status(400).json("invalid email or passowrd");
+          }
+        } else {
+          res.status(400).json("invalid email or passowrd");
+        }
+      } else {
+        res.status(404).json("email does not exist");
+      }
+    })
+    .catch((err) => res.status(400).json(err));
+};
 
 
-module.exports = { register,  activate };
+
+
+
+module.exports = { register,  activEmail, login };
