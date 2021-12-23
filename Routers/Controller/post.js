@@ -1,4 +1,5 @@
 const postModel = require("./../../db/Models/post");
+const userModel = require("./../../db/Models/user");
 
 //
 const addPost = (req, res) => {
