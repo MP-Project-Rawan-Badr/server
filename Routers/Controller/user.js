@@ -171,8 +171,21 @@ const login = (req, res) => {
     .catch((err) => res.status(400).json(err));
 };
 
+//get all users
+const getAllUsers = (req, res) => {
+  userModel
+    .find({})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 
 
 
-module.exports = { register,  activEmail, login };
+
+
+module.exports = { register,  activEmail, login, getAllUsers };
