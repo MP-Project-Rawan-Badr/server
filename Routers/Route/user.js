@@ -1,9 +1,13 @@
 const express = require("express");
 const userRouter = express.Router();
-const { register , activate } = require("./../Controller/user");
+const { register , activEmail , login } = require("./../Controller/user");
 
+//
 userRouter.post("/register" , register);
-userRouter.get('/activate/:token', activate);
+userRouter.get('/activate/:token', activEmail);
+
+//
+userRouter.post("/login" , login);
 
 
 
