@@ -1,12 +1,12 @@
 const express = require("express");
 const inquiryRouter = express.Router();
-const {addinquiry, getInquiries} = require("./../Controller/inquiry");
+const {addinquiry, getInquiries, updateInquiry} = require("./../Controller/inquiry");
 
 
 //
 inquiryRouter.post("/addinquiry", addinquiry);
-inquiryRouter.get("/addinquiry", getInquiries);
-
+inquiryRouter.get("/getInquiries", getInquiries);
+inquiryRouter.put("/updateInquiry/:id", updateInquiry);
 
 
 module.exports = inquiryRouter;
