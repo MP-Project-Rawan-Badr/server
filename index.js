@@ -7,8 +7,14 @@ app.use(cors());
 
 require("./db");
 
+//role
 const roleRouter = require("./Routers/Route/Role");
 app.use(roleRouter);
+
+//user
+const userRouter = require("./Routers/Route/user");
+app.use(userRouter);
+
 
 
 
