@@ -5,7 +5,8 @@ const post = new mongoose.Schema({
     imgs: [{ type: Array , required: true  }],
     dec: {type: String , required: true},
     isDel: {type: Boolean , default: false},
-    Date: { type: new Date }
+    datePost: { type: Date , default: Date.now },
+    user: { type: mongoose.Schema.Types.ObjectId , ref: "User"  }
 
 });
 
