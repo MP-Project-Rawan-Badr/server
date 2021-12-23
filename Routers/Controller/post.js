@@ -62,4 +62,34 @@ const updatePost = (req, res) => {
     });
 };
 
-module.exports = { addPost, getAllPosts , updatePost };
+// delete post
+const deletePost = (req, res) => {
+    const { id } = req.params;
+    postModel
+      .findByIdAndUpdate(
+        { _id: id,  isDel: false },
+        { isDel: true },
+        { new: true }
+      )
+      .populate("user")
+      .then((result) => {
+        if (result) {
+          commentModel.find({ isDel: true }).catch((err) => {
+            res.status(400).json(err);
+          });
+          likeModel.find({ like: false }).catch((err) => {
+            res.status(400).json(err);
+          })
+            res.status(200).json("deleted");
+        } else {
+          res.status(404).json("already deleted");
+        }
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  };
+
+
+
+module.exports = { addPost, getAllPosts , updatePost , deletePost };
