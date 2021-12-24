@@ -1,4 +1,4 @@
-const roleModel = require("./../../db/models/role");
+const roleModel = require("./../../db/Models/Role");
 
 const authorization = async (req, res, next) => {
   try {
