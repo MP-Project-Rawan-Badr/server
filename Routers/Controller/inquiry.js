@@ -4,11 +4,11 @@ const roleModel = require("./../../db/Models/Role");
 
 // all registerants can add inquiry
 const addinquiry = (req, res) => {
-  const { title, dec, user } = req.body;
+  const { title, dec } = req.body;
   const newInquiry = new inquiryModel({
     title,
     dec,
-    user,
+    user: req.token.id,
   });
   newInquiry
     .save()
@@ -43,7 +43,7 @@ const updateInquiry = (req, res) => {
   const { title, dec } = req.body;
   inquiryModel
     .findByIdAndUpdate(
-      { _id: id, isDel: false },
+      { _id: id,user: req.token.id, isDel: false },
       {
         title,
         dec,
