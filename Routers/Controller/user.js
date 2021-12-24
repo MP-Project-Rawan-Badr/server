@@ -139,10 +139,10 @@ const activEmail = async (req, res) => {
 // login 
 const login = (req, res) => {
   const { email, password } = req.body;
-  const saveEmail = email.toLowerCase();
+  // const saveEmail = email.toLowerCase();
 
   userModel
-    .findOne({ email: saveEmail })
+    .findOne({ email })
     .then(async (result) => {
       if (result) {
         if (result.email == email) {
@@ -150,7 +150,7 @@ const login = (req, res) => {
           console.log(hashedPass);
 
           const payload = {
-            // id,
+            id: result._id,
             email,
           };
 
