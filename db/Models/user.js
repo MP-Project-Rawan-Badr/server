@@ -5,6 +5,7 @@ const user = new mongoose.Schema({
     email: { type: String , required: true , unique: true },
     password: { type: String, required: true },
     isDel: { type: Boolean, default: false },
+    active: { type: Boolean, default: false },
     role: { type: mongoose.Schema.Types.ObjectId , ref: "Role" },
 });
 

@@ -11,7 +11,7 @@ const {
 const authentecation = require("./../MiddleWare/authentecation");
 
 inquiryRouter.post("/addinquiry", authentecation, addinquiry);
-inquiryRouter.get("/getInquiries", authentecation, getInquiries);
+inquiryRouter.get("/getInquiries", getInquiries);
 inquiryRouter.put("/updateInquiry/:id", authentecation, updateInquiry);
 inquiryRouter.delete("/deleteInquiry/:id", authentecation, deleteInquiry);
 

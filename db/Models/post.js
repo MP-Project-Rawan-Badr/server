@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const post = new mongoose.Schema({
     title: { type: String , required: true  },
+    image: { type: String , required: true  },
     imgs: [{ type: Array , required: true  }],
     dec: {type: String , required: true},
     isDel: {type: Boolean , default: false},

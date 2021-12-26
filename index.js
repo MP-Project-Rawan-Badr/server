@@ -24,6 +24,9 @@ app.use(postRouter);
 const inquiryRouter = require("./Routers/Route/inquiry");
 app.use(inquiryRouter);
 
+const appointmentRouter = require("./Routers/Route/appointment");
+app.use(appointmentRouter)
+
 
 const PORT = process.env.PORT /*|| 5000*/;
 app.listen(PORT , () => {

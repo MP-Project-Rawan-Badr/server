@@ -1,10 +1,10 @@
-const postModel = require("./../../db/Models/post");
+const appointmentModel = require("./../../db/Models/appointment");
 const userModel = require("./../../db/Models/user");
 const roleModel = require("./../../db/Models/Role");
 
-//
-const addPost = (req, res) => {
-  const { title, image , imgs, dec } = req.body;
+// service provider can add appointment
+const addAppointment = (req, res) => {
+  const { date, Note } = req.body;
   console.log(req.token);
   userModel
     .findById(req.token.id)
@@ -13,14 +13,12 @@ const addPost = (req, res) => {
       console.log(result);
       if (result) {
         if (result.role?.role == "service provider") {
-          const newPost = new postModel({
-            title,
-            image,
-            imgs,
-            dec,
+          const newAppointment = new appointmentModel({
+            date,
+            Note,
             user: req.token.id,
           });
-          newPost
+          newAppointment
             .save()
             .then((result) => {
               res.status(201).json(result);
@@ -35,27 +33,27 @@ const addPost = (req, res) => {
     });
 };
 
-//
-const getAllPosts = (req, res) => {
-  postModel
+// service provider can see appointment
+const getAppointment = (req, res) => {
+  appointmentModel
     .find({ isDel: false })
-    // .populate("user")
+    .populate("user")
     .then((result) => {
       if (result) {
         res.status(200).json(result);
       } else {
-        res.status(400).json("post not found");
+        res.status(400).json("appointment not found");
       }
     })
-    .catch((err) => {
-      res.status(400).json(err);
+    .catch((error) => {
+      res.status(400).json(error);
     });
 };
 
-//update post
-const updatePost = (req, res) => {
+// service provider can update appointment
+const updateAppointment = (req, res) => {
   const { id } = req.params;
-  const { title, imgs, dec } = req.body;
+  const { date, Note } = req.body;
   console.log(req.token);
   userModel
     .findById(req.token.id)
@@ -64,35 +62,33 @@ const updatePost = (req, res) => {
       console.log(result);
       if (result) {
         if (result.role?.role == "service provider") {
-  postModel
-    .findByIdAndUpdate(
-      { _id: id, isDel: false },
-      {
-        title,
-        imgs,
-        dec,
+          appointmentModel
+            .findByIdAndUpdate(
+              { _id: id, user: req.token.id, isDel: false },
+              {
+                date,
+                Note,
+              }
+            )
+            .populate("user")
+            .then((result) => {
+              if (!result) {
+                res.status(400).json(" This inquiry not found");
+              } else {
+                res.status(200).json("update inquiry");
+              }
+            })
+            .catch((error) => {
+              res.status(400).json(error);
+            });
+        } else {
+          res.status(400).json("not allowd");
+        }
       }
-    )
-    .populate("user")
-    .then((result) => {
-      if (!result) {
-        res.status(400).json(" This post not found");
-      } else {
-        res.status(200).json("update post");
-      }
-    })
-    .catch((error) => {
-      res.status(400).json(error);
     });
-  } else {
-    res.status(400).json("not allowd");
-  }
-}
-});
 };
-
-// delete post
-const deletePost = (req, res) => {
+//service provider can delete appointment
+const deleteAppointment = (req, res) => {
   const { id } = req.params;
   console.log(req.token);
   userModel
@@ -105,16 +101,16 @@ const deletePost = (req, res) => {
           result.role?.role == "service provider" ||
           result.role?.role == "admin"
         ) {
-          postModel
+          appointmentModel
             .findByIdAndUpdate(
-              { _id: id, user: req.token.id, isDel: false },
+              { _id: id, isDel: false },
               { isDel: true },
               { new: true }
             )
             .populate("user")
             .then((result) => {
               if (result) {
-                res.status(200).json("deleted");
+                res.status(200).json("deleted inquiry");
               } else {
                 res.status(404).json("already deleted");
               }
@@ -130,8 +126,8 @@ const deletePost = (req, res) => {
 };
 
 module.exports = {
-  addPost,
-  getAllPosts,
-  updatePost,
-  deletePost,
+  addAppointment,
+  getAppointment,
+  updateAppointment,
+  deleteAppointment,
 };
