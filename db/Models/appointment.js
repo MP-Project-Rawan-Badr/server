@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const appointment = new mongoose.Schema({
-    Date: { type: new Date },
+    date: { type:  Date , required: true},
     user: { type: mongoose.Schema.Types.ObjectId , ref: "User" },
+    Note: {type: String},
     isDel: {type: Boolean , default: false},
 
 });

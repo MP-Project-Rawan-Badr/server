@@ -139,13 +139,13 @@ const activEmail = async (req, res) => {
 // login 
 const login = (req, res) => {
   const { email, password } = req.body;
-  // const saveEmail = email.toLowerCase();
 
   userModel
     .findOne({ email })
     .then(async (result) => {
       if (result) {
         if (result.email == email) {
+
           const hashedPass = await bcrypt.compare(password, result.password);
           console.log(hashedPass);
 
