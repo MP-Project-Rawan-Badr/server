@@ -4,7 +4,14 @@ const roleModel = require("./../../db/Models/Role");
 
 //
 const addPost = (req, res) => {
-  const { title, image , imgs, dec } = req.body;
+  const { 
+    title, 
+    image,
+     dec ,
+    // images ,
+     price ,
+   workingTime
+  } = req.body;
   console.log(req.token);
   userModel
     .findById(req.token.id)
@@ -16,8 +23,10 @@ const addPost = (req, res) => {
           const newPost = new postModel({
             title,
             image,
-            imgs,
             dec,
+            // images,
+            price,
+            workingTime,
             user: req.token.id,
           });
           newPost
@@ -52,10 +61,29 @@ const getAllPosts = (req, res) => {
     });
 };
 
+// get one post -> id
+//post not delete
+const getOnePost = (req, res) => {
+  const { id } = req.params;
+  postModel
+    .find({ _id: id, isDel: false })
+    .populate("user")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json("post not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
 //update post
 const updatePost = (req, res) => {
   const { id } = req.params;
-  const { title, imgs, dec } = req.body;
+  const { title, image, dec,  price, workingTime } = req.body;
   console.log(req.token);
   userModel
     .findById(req.token.id)
@@ -64,47 +92,44 @@ const updatePost = (req, res) => {
       console.log(result);
       if (result) {
         if (result.role?.role == "service provider") {
-  postModel
-    .findByIdAndUpdate(
-      { _id: id, isDel: false },
-      {
-        title,
-        imgs,
-        dec,
+          postModel
+            .findOneAndUpdate(
+              { _id: id, isDel: false },
+              {
+                title,
+                image,
+                dec,
+                price,
+                workingTime,
+              }
+            )
+            .populate("user")
+            .then((result) => {
+              if (!result) {
+                res.status(400).json(" This post not found");
+              } else {
+                res.status(200).json("update post");
+              }
+            })
+            .catch((error) => {
+              res.status(400).json(error);
+            });
+        } else {
+          res.status(400).json("not allowd");
+        }
       }
-    )
-    .populate("user")
-    .then((result) => {
-      if (!result) {
-        res.status(400).json(" This post not found");
-      } else {
-        res.status(200).json("update post");
-      }
-    })
-    .catch((error) => {
-      res.status(400).json(error);
     });
-  } else {
-    res.status(400).json("not allowd");
-  }
-}
-});
 };
 
 // delete post
 const deletePost = (req, res) => {
   const { id } = req.params;
-  console.log(req.token);
+  // console.log(req.token);
   userModel
     .findById(req.token.id)
     .populate("role")
-    .then((result) => {
-      console.log(result);
-      if (result) {
-        if (
-          result.role?.role == "service provider" ||
-          result.role?.role == "admin"
-        ) {
+    .then((user) => {
+      if (user) {
           postModel
             .findByIdAndUpdate(
               { _id: id, user: req.token.id, isDel: false },
@@ -114,7 +139,13 @@ const deletePost = (req, res) => {
             .populate("user")
             .then((result) => {
               if (result) {
+                if (
+                  user.role?.role == "admin" || result.user == req.token.id
+                ){
                 res.status(200).json("deleted");
+              } else {
+                res.status(400).json("not allowd");
+              }
               } else {
                 res.status(404).json("already deleted");
               }
@@ -122,16 +153,33 @@ const deletePost = (req, res) => {
             .catch((err) => {
               res.status(400).json(err);
             });
-        } else {
-          res.status(400).json("not allowd");
-        }
+        
       }
+    });
+};
+
+const getUserPost = (req, res) => {
+  const { id } = req.params;
+  postModel
+    .find({ user: id, isDel: false })
+    // .populate("user")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json("This post not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
     });
 };
 
 module.exports = {
   addPost,
   getAllPosts,
+  getOnePost,
+  getUserPost,
   updatePost,
   deletePost,
 };

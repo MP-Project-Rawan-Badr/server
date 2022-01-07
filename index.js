@@ -1,9 +1,13 @@
 const express = require("express");
+const socket = require("socket.io");
 const app = express();
 app.use(express.json());
 require("dotenv").config();
+
 const cors = require("cors");
-app.use(cors());
+app.use(
+    cors({credentials: true, origin: true, methods: "GET,POST,PUT,DELETE",}) 
+);
 
 require("./db");
 
@@ -24,11 +28,41 @@ app.use(postRouter);
 const inquiryRouter = require("./Routers/Route/inquiry");
 app.use(inquiryRouter);
 
+//comment
+const commentsRouter = require("./Routers/Route/comment");  
+app.use(commentsRouter);
+
 const appointmentRouter = require("./Routers/Route/appointment");
-app.use(appointmentRouter)
+app.use(appointmentRouter);
+
+const rateRouter = require("./Routers/Route/rating");  
+app.use(rateRouter);
 
 
 const PORT = process.env.PORT /*|| 5000*/;
-app.listen(PORT , () => {
+const server = app.listen(PORT , () => {
     console.log(`Server run on ${PORT}`);
 })
+
+//
+const io = socket(server, {
+    cors: {
+      origin: process.env.ORIGIN_CORS,
+      methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+  });
+  
+  io.on("connection", (socket) => {
+    socket.on("join_room", (data) => {
+      socket.join(data.room);
+      console.log(`${data.userName} has entered the room number ${data.room}`);
+    });
+  
+    socket.on("send_message", (data) => {
+      io.emit("recieve_message", {
+          userName: data.userName,
+          content: data.content,
+        });
+    });
+  });
+  
