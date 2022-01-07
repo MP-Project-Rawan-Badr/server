@@ -4,10 +4,10 @@ const roleModel = require("./../../db/Models/Role");
 
 // all registerants can add inquiry
 const addinquiry = (req, res) => {
-  const { title, dec } = req.body;
+const { title/*, dec*/ } = req.body;
   const newInquiry = new inquiryModel({
     title,
-    dec,
+    // dec,
     user: req.token.id,
   });
   newInquiry
@@ -36,20 +36,37 @@ const getInquiries = (req, res) => {
       res.status(400).json(error);
     });
 };
+//
+const getOneInquiry = (req, res) => {
+  const { id } = req.params;
+  inquiryModel
+    .find({ _id: id,  isDel: false })
+    .populate("user")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json("inquiry not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 // all registerants can update inquiry
 const updateInquiry = (req, res) => {
   const { id } = req.params;
-  const { title, dec } = req.body;
+  const { title, /*dec ,*/ complete } = req.body;
   inquiryModel
     .findByIdAndUpdate(
       { _id: id,user: req.token.id, isDel: false },
       {
         title,
-        dec,
+        // dec,
+        complete,
       }
     )
-    .populate("user")
     .then((result) => {
       if (!result) {
         res.status(400).json(" This inquiry not found");
@@ -83,4 +100,21 @@ const deleteInquiry = (req, res) => {
     });
 };
 
-module.exports = { addinquiry, getInquiries, updateInquiry, deleteInquiry };
+const getUserInquiry = (req, res) => {
+  const { id } = req.params;
+  inquiryModel
+    .find({ user: id, isDel: false })
+    // .populate("user")
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json(" Not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+module.exports = { addinquiry, getInquiries, getOneInquiry, getUserInquiry ,  updateInquiry, deleteInquiry };
