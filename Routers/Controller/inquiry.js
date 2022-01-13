@@ -4,10 +4,10 @@ const roleModel = require("./../../db/Models/Role");
 
 // all registerants can add inquiry
 const addinquiry = (req, res) => {
-const { title/*, dec*/ } = req.body;
+const { title , city } = req.body;
   const newInquiry = new inquiryModel({
     title,
-    // dec,
+    city,
     user: req.token.id,
   });
   newInquiry
@@ -63,7 +63,7 @@ const updateInquiry = (req, res) => {
       { _id: id,user: req.token.id, isDel: false },
       {
         title,
-        // dec,
+        city,
         complete,
       }
     )
