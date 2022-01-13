@@ -17,7 +17,8 @@ const valid = process.env.VALID_MAIL;
 
 //create users
 const register = async (req, res) => {
-  const { userName, email, password, password2, role, avatar, bio , status } = req.body;
+  const { userName, email, password, password2, role, avatar, bio, status } =
+    req.body;
 
   if (!userName && !email && !password && !password2) {
     res.json("رجاءا اكمل جميع الحقول");
@@ -30,8 +31,7 @@ const register = async (req, res) => {
   if (password.length < 8) {
     res.json("الرجاء كتابة 8 أحرف وأرقام");
   }
-  userModel.findOne({ email: email })
-  .then((user) => {
+  userModel.findOne({ email: email }).then((user) => {
     if (user) {
       res.json("معرف البريد الإلكتروني مسجل بالفعل");
     } else {
@@ -102,20 +102,23 @@ const activEmail = async (req, res) => {
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
         res.json({
-          error: "⛔️ رابط غير صحيح أو منتهي الصلاحية! الرجاء التسجيل مرة أخرى" ,
+          error: "⛔️ رابط غير صحيح أو منتهي الصلاحية! الرجاء التسجيل مرة أخرى",
         });
       } else {
-        const { userName, email, password, avatar, bio, status, role } = decodedToken;
+        const { userName, email, password, avatar, bio, status, role } =
+          decodedToken;
         userModel.findOne({ email: email }).then((user) => {
           if (user) {
-            res.json({ error: "معرف البريد الإلكتروني موجود بالفعل! الرجاء الدخول تسجيل الدخول" });
+            res.json({
+              error:
+                "معرف البريد الإلكتروني موجود بالفعل! الرجاء الدخول تسجيل الدخول",
+            });
           } else {
             const newUser = new userModel({
               userName,
               email,
               password,
-              
-              
+
               status,
               role,
             });
@@ -180,70 +183,67 @@ const forgotPass = (req, res) => {
   if (!email) {
     res.json("الرجاء إدخال معرف البريد الإلكتروني");
   }
-    userModel.findOne({ email: email })
-    .then((user) => {
-      if (!user) {
-        res.json("!المستخدم مع معرف البريد الإلكتروني غير موجود" );
-      } else {
-        const OAuth = new OAuth2(
-          process.env.CLIENT_ID,
-          process.env.CLIENT_SECRET,
-          process.env.REDIRECT_URL
-        );
-        OAuth.setCredentials({
-          refresh_token: process.env.REFRESH_TOKEN,
-        });
+  userModel.findOne({ email: email }).then((user) => {
+    if (!user) {
+      res.json("!المستخدم مع معرف البريد الإلكتروني غير موجود");
+    } else {
+      const OAuth = new OAuth2(
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET,
+        process.env.REDIRECT_URL
+      );
+      OAuth.setCredentials({
+        refresh_token: process.env.REFRESH_TOKEN,
+      });
 
-        const accessToken = OAuth.getAccessToken();
+      const accessToken = OAuth.getAccessToken();
 
-        const token = jwt.sign({ _id: user._id }, 
-          secret, {
-          expiresIn: "1h",
-        });
-        const output = `
+      const token = jwt.sign({ _id: user._id }, secret, {
+        expiresIn: "1h",
+      });
+      const output = `
                 <h2>الرجاء الضغط على الرابط أدناه لإعادة تعيين كلمة مرور حسابك</h2>
                 <p>${valid}/reset/${token}</p>
                 <p><b>:ملاحظة </b> .تنتهي صلاحية رابط التفعيل خلال ساعة واحدة</p>
                 `;
 
-        userModel.updateOne({ resetLink: token }, (err, success) => {
-          if (err) {
-            res.json("!خطأ في إعادة تعيين كلمة المرور");
-          } else {
-            const transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                type: "OAuth2",
-                user: "nodejsa@gmail.com",
-                clientId: process.env.CLIENT_ID,
-                clientSecret: process.env.CLIENT_SECRET,
-                refreshToken: process.env.REFRESH_TOKEN,
-                accessToken: accessToken,
-              },
-            });
+      userModel.updateOne({ resetLink: token }, (err, success) => {
+        if (err) {
+          res.json("!خطأ في إعادة تعيين كلمة المرور");
+        } else {
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              type: "OAuth2",
+              user: "nodejsa@gmail.com",
+              clientId: process.env.CLIENT_ID,
+              clientSecret: process.env.CLIENT_SECRET,
+              refreshToken: process.env.REFRESH_TOKEN,
+              accessToken: accessToken,
+            },
+          });
 
-            const mailOptions = {
-              from: '"wmeedh" <wmeedh@gmail.com>', 
-              to: email, 
-              subject: " :إعادة تعيين كلمة مرور الحساب", 
-              html: output,
-            };
+          const mailOptions = {
+            from: '"wmeedh" <wmeedh@gmail.com>',
+            to: email,
+            subject: " :إعادة تعيين كلمة مرور الحساب",
+            html: output,
+          };
 
-            transporter.sendMail(mailOptions, (error) => {
-              if (error) {
-                res.json(".حدث خطأ من جانبنا ، يرجى المحاولة مرة أخرى لاحقًا");
-              } else {
-                res.json({
-                  success:
-                    " .تم إرسال رابط إعادة تعيين كلمة المرور إلى معرف البريد الإلكتروني الخاص بك يرجى اتباع التعليمات ",
-                });
-              }
-            });
-          }
-        });
-      }
-    });
-  
+          transporter.sendMail(mailOptions, (error) => {
+            if (error) {
+              res.json(".حدث خطأ من جانبنا ، يرجى المحاولة مرة أخرى لاحقًا");
+            } else {
+              res.json({
+                success:
+                  " .تم إرسال رابط إعادة تعيين كلمة المرور إلى معرف البريد الإلكتروني الخاص بك يرجى اتباع التعليمات ",
+              });
+            }
+          });
+        }
+      });
+    }
+  });
 };
 
 const funcReset = (req, res) => {
@@ -251,12 +251,14 @@ const funcReset = (req, res) => {
   if (token) {
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
-        res.json("رابط غير صحيح أو منتهي الصلاحية! حاول مرة اخرى" );
+        res.json("رابط غير صحيح أو منتهي الصلاحية! حاول مرة اخرى");
       } else {
         const { _id } = decodedToken;
         userModel.findById(_id, (error) => {
           if (error) {
-            res.json("المستخدم مع معرف البريد الإلكتروني غير موجود! حاول مرة اخرى");
+            res.json(
+              "المستخدم مع معرف البريد الإلكتروني غير موجود! حاول مرة اخرى"
+            );
           } else {
             res.json({ success: _id });
           }
@@ -273,34 +275,30 @@ const resetPass = (req, res) => {
   const id = req.params.id;
 
   if (!password || !password2) {
-    res.json("الرجاء إدخال كافة الحقول" );
+    res.json("الرجاء إدخال كافة الحقول");
   } else if (password.length < 8) {
-    res.json("⛔️ يجب أن تكون كلمة المرور 8 أحرف على الأقل" );
+    res.json("⛔️ يجب أن تكون كلمة المرور 8 أحرف على الأقل");
   } else if (password != password2) {
-    res.json("كلمة المرور غير مطابقة" );
+    res.json("كلمة المرور غير مطابقة");
   } else {
     bcrypt.hash(password, SALT, (error, hash) => {
-        if (error) throw error;
-        password = hash;
-        userModel.findByIdAndUpdate(
-          { _id: id },
-          { password },
-          (err) => {
-            if (err) {
-              res.json("!خطأ في إعادة تعيين كلمة المرور" );
-            } else {
-              res.json( "!إعادة تعيين كلمة المرور بنجاح" );
-            }
-          }
-        );
+      if (error) throw error;
+      password = hash;
+      userModel.findByIdAndUpdate({ _id: id }, { password }, (err) => {
+        if (err) {
+          res.json("!خطأ في إعادة تعيين كلمة المرور");
+        } else {
+          res.json("!إعادة تعيين كلمة المرور بنجاح");
+        }
+      });
     });
   }
 };
 
 //get all users
-const getAllUsers = (req, res) => {  
+const getAllUsers = (req, res) => {
   userModel
-.find({/*role: "61c4375564bde5690cdb68d0" || "61c05adf3708bf224ada4794" */ isDel: false})
+    .find({ isDel: false })
     .populate("role")
     .then((result) => {
       res.status(200).json(result);
@@ -340,7 +338,7 @@ const getUsers = (req, res) => {
 // get users....
 const getServiceProvider = (req, res) => {
   userModel
-    .find({ role: "61c4375564bde5690cdb68d0"})
+    .find({ role: "61c4375564bde5690cdb68d0" , isDel: false })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -348,20 +346,20 @@ const getServiceProvider = (req, res) => {
       res.status(400).json(err);
     });
 };
-  
+
 const updateUser = (req, res) => {
-  const { status } = req.body;
-  console.log('status',req.token.id);
+  const { userName, bio, specialty, Email, Phone_Number, city, status , avatar } =
+    req.body;
+  // console.log("status", req.token.id,avatar,"avatar");
   userModel
-    .findOneAndUpdate(
-      {_id:req.token.id },
-      { status }, 
-      {upsert:true},
-    
+    .findByIdAndUpdate(
+      { _id: req.token.id, isDel: false },
+      { userName, bio, specialty, Email, Phone_Number, city, status , avatar }
+      // {upsert:true},
     )
     .then((result) => {
       // if (result) {
-        res.status(200).json(result);
+      res.status(200).json(result);
       // }
     })
     .catch((error) => {
@@ -374,14 +372,14 @@ const delUser = (req, res) => {
   // console.log( "hhh", id);
   userModel
     .findOneAndUpdate(
-      { _id, isDel: false , user:req.token.id},
+      { _id, isDel: false},
       { isDel: true },
       { new: true }
     )
     .then((result) => {
       if (result) {
-          // if (user.role?.role == "admin"){
-          res.status(200).json("deleted");
+        // if (user.role?.role == "admin"){
+        res.status(200).json("deleted");
         // }
       } else {
         res.status(404).json("already deleted");
