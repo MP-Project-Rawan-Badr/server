@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const cors = require("cors");
 app.use(
-    cors({credentials: true, origin: true, methods: "GET,POST,PUT,DELETE",}) 
+    cors({credentials: true, origin: true, methods: "GET,POST,PUT,DELETE"}) 
 );
 
 require("./db");
