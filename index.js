@@ -4,9 +4,7 @@ app.use(express.json());
 require("dotenv").config();
 
 const cors = require("cors");
-app.use(
-    cors({credentials: true, origin: true, methods: "GET,POST,PUT,DELETE"}) 
-);
+app.use(cors());
 
 require("./db");
 
