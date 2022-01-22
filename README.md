@@ -27,7 +27,7 @@ https://trello.com/b/p0lIavji/mprawanbadr
 https://slides
 
 ### :heavy_check_mark: `Client Repositories:`
-https://finalclient-wmeedh.herokuapp.com/
+https://github.com/MP-Project-Rawan-Badr/client/blob/main/README.md
 ### :heavy_check_mark: `Deploy:`
 https://mp-ffront.herokuapp.com/
 
