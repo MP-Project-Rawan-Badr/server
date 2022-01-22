@@ -308,6 +308,18 @@ const getAllUsers = (req, res) => {
     });
 };
 
+const getAUsers = (req, res) => {
+  userModel
+    .find({ isDel: true })
+    .populate("role")
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
 // profile
 const getOneUser = (req, res) => {
   const { _id } = req.params;
@@ -348,13 +360,13 @@ const getServiceProvider = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { userName, bio, specialty, Email, Phone_Number, city, status , avatar } =
+  const { userName, bio, specialty, Email, Phone_Number , city, status , avatar } =
     req.body;
   // console.log("status", req.token.id,avatar,"avatar");
   userModel
     .findByIdAndUpdate(
       { _id: req.token.id, isDel: false },
-      { userName, bio, specialty, Email, Phone_Number, city, status , avatar }
+      { userName, bio, specialty, Email, Phone_Number , city, status , avatar }
       // {upsert:true},
     )
     .then((result) => {
@@ -390,6 +402,28 @@ const delUser = (req, res) => {
     });
 };
 
+const reUser = (req, res) => {
+  const { _id } = req.params;
+  // console.log( "hhh", id);
+  userModel
+    .findOneAndUpdate(
+      { _id, isDel: true},
+      { isDel: false },
+      { new: true }
+    )
+    .then((result) => {
+      if (result) {
+        res.status(200).json("return");
+        // }
+      } else {
+        res.status(404).json("already return");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
 module.exports = {
   register,
   activEmail,
@@ -398,9 +432,11 @@ module.exports = {
   funcReset,
   resetPass,
   getAllUsers,
+  getAUsers,
   getOneUser,
   getServiceProvider,
   getUsers,
   updateUser,
   delUser,
+  reUser,
 };
