@@ -10,7 +10,8 @@ const addPost = (req, res) => {
      dec ,
     // images ,
      price ,
-   workingTime
+   workingTime,
+   delivery,
   } = req.body;
   console.log(req.token);
   userModel
@@ -27,6 +28,7 @@ const addPost = (req, res) => {
             // images,
             price,
             workingTime,
+            delivery,
             user: req.token.id,
           });
           newPost
@@ -83,7 +85,8 @@ const getOnePost = (req, res) => {
 //update post
 const updatePost = (req, res) => {
   const { id } = req.params;
-  const { title, image, dec,  price, workingTime } = req.body;
+  const { title, image, dec,  price, workingTime, delivery,
+  } = req.body;
   console.log(req.token);
   userModel
     .findById(req.token.id)
@@ -101,6 +104,7 @@ const updatePost = (req, res) => {
                 dec,
                 price,
                 workingTime,
+                delivery,
               }
             )
             .populate("user")

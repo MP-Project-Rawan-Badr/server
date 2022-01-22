@@ -7,6 +7,7 @@ const post = new mongoose.Schema({
     // images: { type: Array , required: true  },
     price: {type: Number ,  default: "none"}, 
     workingTime: { type: String , required: true  },
+    delivery: {type: String},
     isDel: {type: Boolean , default: false},
     datePost: { type: Date , default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId , ref: "User"  }
